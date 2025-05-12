@@ -1,29 +1,28 @@
 package com.example.gestion_inventario_drogueria_front
 
 import android.os.Bundle
-import android.widget.TextView
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.example.gestion_inventario_drogueria_front.R
+import androidx.compose.material3.*
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProductoViewModel
+import com.example.gestion_inventario_drogueria_front.ui.screens.InventarioScreen
 
-class MainActivity : AppCompatActivity() {
+/* Es la pantalla que ve el usuario. Observa los datos del ViewModel y los muestra:
+🔹 Aquí es donde conectas la vista con los datos.
+🔹 Idealmente debería tener solo lógica visual.
+ */
+class MainActivity : ComponentActivity() {
 
     private val viewModel: ProductoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val txtProductos = findViewById<TextView>(R.id.txtProductos)
-
-        viewModel.productos.observe(this) { productos ->
-            val texto = productos.joinToString("\n") {
-                "${it.nombre} - \$${it.precioUnitario} - Stock: ${it.descripcion}"
+        setContent {
+            MaterialTheme {
+                InventarioScreen(viewModel)
             }
-            txtProductos.text = texto
         }
-
-        viewModel.cargarProductos()
     }
 }

@@ -15,10 +15,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.foundation.lazy.items
 import com.example.gestion_inventario_drogueria_front.ui.components.ProductoItem
 import androidx.compose.runtime.LaunchedEffect
+import androidx.navigation.NavController
+import com.example.gestion_inventario_drogueria_front.ui.components.menu.BotonVolverAlMenu
 
 // Pantallas que tendra la app
 @Composable
-fun ListarProductosScreen(viewModel: ProductoViewModel) {
+fun ListarProductosScreen(viewModel: ProductoViewModel, navController: NavController) {
     val productos by viewModel.productos.observeAsState(emptyList())
 
     // Cargar la primera página al mostrar la pantalla
@@ -27,6 +29,9 @@ fun ListarProductosScreen(viewModel: ProductoViewModel) {
     }
 
     Column(modifier = Modifier.padding(16.dp)) {
+
+        BotonVolverAlMenu(navController)
+
         // Lista de productos
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(productos) { producto ->

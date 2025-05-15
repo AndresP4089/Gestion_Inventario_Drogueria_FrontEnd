@@ -10,15 +10,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavController
+import com.example.gestion_inventario_drogueria_front.ui.components.menu.BotonVolverAlMenu
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProductoViewModel
 
 // Buscar por codigo
 @Composable
-fun BuscarProductoScreen(viewModel: ProductoViewModel) {
+fun BuscarProductoScreen(viewModel: ProductoViewModel, navController: NavController) {
     var codigo by remember { mutableStateOf("") }
     val productoBuscado by viewModel.productoBuscado.observeAsState()
 
     Column {
+
+        BotonVolverAlMenu(navController)
+
         TextField(
             value = codigo,
             onValueChange = { codigo = it },

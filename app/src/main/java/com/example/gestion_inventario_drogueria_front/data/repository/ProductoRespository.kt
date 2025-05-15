@@ -12,7 +12,15 @@ import com.example.gestion_inventario_drogueria_front.data.models.Producto
 class ProductoRepository {
     private val retrofitService = RetrofitInstance.retrofit.create(ProductoApi::class.java)
 
-    suspend fun obtenerProductos(): Page<Producto> {
-        return retrofitService.obtenerProductos(pagina = 0)
+    suspend fun obtenerProductos(pagina: Int): Page<Producto> {
+        return retrofitService.obtenerProductos(pagina)
+    }
+
+    suspend fun obtenerPorCodigo(codigo: String): Producto {
+        // Si no trae codigo
+        if (codigo == null || codigo.isBlank()) {
+            throw RuntimeException("Debe proporcionar el código.")
+        }
+        return retrofitService.obtenerPorCodigo(codigo)
     }
 }

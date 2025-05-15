@@ -13,4 +13,8 @@ interface ProductoApi {
     // Traer todos
     @GET("productos/paginar/{pagina}")
     suspend fun obtenerProductos(@Path("pagina") pagina: Int): Page<Producto>
+
+    // Buscar por código
+    @GET("productos/buscar/{codigo}")
+    suspend fun obtenerPorCodigo(@Path("codigo") codigo: String): Producto
 }

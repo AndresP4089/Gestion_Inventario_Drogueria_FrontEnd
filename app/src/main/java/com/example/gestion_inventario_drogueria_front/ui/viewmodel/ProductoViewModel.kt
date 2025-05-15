@@ -2,7 +2,7 @@ package com.example.gestion_inventario_drogueria_front.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.gestion_inventario_drogueria_front.data.models.Producto
+import com.example.gestion_inventario_drogueria_front.data.models.*
 import com.example.gestion_inventario_drogueria_front.data.repository.ProductoRepository
 import kotlinx.coroutines.launch
 
@@ -16,14 +16,54 @@ class ProductoViewModel : ViewModel() {
     private val _productos = MutableLiveData<List<Producto>>()
     val productos: LiveData<List<Producto>> = _productos
 
-    fun cargarProductos() {
+    private val _productoBuscado = MutableLiveData<Producto?>()
+    val productoBuscado: LiveData<Producto?> = _productoBuscado
+
+    private var paginaActual = 0
+    private var ultimaPagina: Boolean = false
+    private var totalPaginas: Int = 1
+
+    fun cargarProductos(pagina: Int = paginaActual) {
         viewModelScope.launch {
             try {
-                val pagina = repository.obtenerProductos()  // <--- obtenemos la página completa
-                _productos.value = pagina.content            // <--- usamos solo el contenido
+                val paginaData = repository.obtenerProductos(pagina)
+                _productos.value = paginaData.content
+                paginaActual = paginaData.number
+                ultimaPagina = paginaData.last
+                totalPaginas = paginaData.totalPages
             } catch (e: Exception) {
                 Log.e("ProductoViewModel", "Error cargando productos", e)
             }
         }
     }
+
+    fun cargarSiguientePagina() {
+        if (!ultimaPagina) {
+            cargarProductos(paginaActual + 1)
+        }
+    }
+
+    fun cargarPaginaAnterior() {
+        if (paginaActual > 0) {
+            cargarProductos(paginaActual - 1)
+        }
+    }
+
+    fun obtenerPorCodigo(codigo: String) {
+        viewModelScope.launch {
+            try {
+                val producto = repository.obtenerPorCodigo(codigo)
+                _productoBuscado.value = producto
+            } catch (e: Exception) {
+                Log.e("ProductoViewModel", "Error buscando producto", e)
+            }
+        }
+    }
+
+    fun puedeRetroceder(): Boolean = paginaActual > 0
+    fun getPaginaActual(): Int = paginaActual + 1
+    fun getTotalPaginas(): Int = totalPaginas
+    fun puedeAvanzar(): Boolean = !ultimaPagina
 }
+
+

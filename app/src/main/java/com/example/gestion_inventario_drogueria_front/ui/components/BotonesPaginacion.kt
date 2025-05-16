@@ -1,4 +1,4 @@
-package com.example.gestion_inventario_drogueria_front.ui.components.listar
+package com.example.gestion_inventario_drogueria_front.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

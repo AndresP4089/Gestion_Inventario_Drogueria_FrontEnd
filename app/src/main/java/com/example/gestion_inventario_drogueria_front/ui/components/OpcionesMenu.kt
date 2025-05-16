@@ -1,4 +1,4 @@
-package com.example.gestion_inventario_drogueria_front.ui.components.menu
+package com.example.gestion_inventario_drogueria_front.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -50,7 +50,13 @@ fun OpcionesMenu (navController: NavController) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(onClick = { navController.navigate("BuscarProducto") }) {
-                Text("Buscar Producto")
+                Text("Buscar Producto Codigo")
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(onClick = { navController.navigate("BuscarProductoNombre") }) {
+                Text("Buscar Producto Nombre")
             }
         }
     }

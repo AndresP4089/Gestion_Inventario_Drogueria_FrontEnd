@@ -22,15 +22,24 @@ class ProductoViewModel : ViewModel() {
     private var paginaActual = 0
     private var ultimaPagina: Boolean = false
     private var totalPaginas: Int = 1
+    private var terminoBusqueda: String? = null
 
-    // Controlador de paginación
     val paginacion = PaginacionController(
-        cargarPagina = { offset -> cargarProductos(paginaActual + offset) },
+        cargarPagina = { offset ->
+            val nuevaPagina = paginaActual + offset
+            if (terminoBusqueda != null) {
+                obtenerPorNombre(nuevaPagina, terminoBusqueda!!)
+            } else {
+                cargarProductos(nuevaPagina)
+            }
+        },
         puedeAvanzar = { !ultimaPagina },
         puedeRetroceder = { paginaActual > 0 }
     )
 
     fun cargarProductos(pagina: Int = paginaActual) {
+        terminoBusqueda = null
+        _productos.value = emptyList()
         viewModelScope.launch {
             try {
                 val paginaData = repository.obtenerProductos(pagina)
@@ -55,9 +64,38 @@ class ProductoViewModel : ViewModel() {
         }
     }
 
-    // Para mostrar en la UI
+    fun obtenerPorNombre(pagina: Int, nombre: String) {
+        viewModelScope.launch {
+            try {
+                val paginaData = repository.obtenerPorNombre(pagina, nombre)
+                _productos.value = paginaData.content
+                paginaActual = paginaData.number
+                ultimaPagina = paginaData.last
+                totalPaginas = paginaData.totalPages
+                terminoBusqueda = nombre
+            } catch (e: Exception) {
+                Log.e("ProductoViewModel", "Error buscando producto", e)
+            }
+        }
+    }
+
+    fun iniciarBusqueda(nombre: String) {
+        terminoBusqueda = nombre
+        _productos.value = emptyList()
+        obtenerPorNombre(0, nombre)
+    }
+
+    fun limpiarBusqueda() {
+        terminoBusqueda = null
+        _productos.value = emptyList()
+        paginaActual = 0
+        ultimaPagina = false
+        totalPaginas = 1
+    }
+
     fun getPaginaActual(): Int = paginaActual + 1
     fun getTotalPaginas(): Int = totalPaginas
 }
+
 
 

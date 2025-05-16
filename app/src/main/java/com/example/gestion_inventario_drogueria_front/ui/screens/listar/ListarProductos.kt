@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -16,8 +15,8 @@ import androidx.compose.foundation.lazy.items
 import com.example.gestion_inventario_drogueria_front.ui.components.ProductoItem
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
-import com.example.gestion_inventario_drogueria_front.ui.components.menu.BotonVolverAlMenu
-import com.example.gestion_inventario_drogueria_front.ui.components.listar.BotonesPaginacion
+import com.example.gestion_inventario_drogueria_front.ui.components.BotonVolverAlMenu
+import com.example.gestion_inventario_drogueria_front.ui.components.BotonesPaginacion
 
 // Pantallas que tendra la app
 @Composable

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProductoPorNombreScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.menu.MenuPrincipalScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarProductosScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProductoScreen
@@ -29,6 +30,7 @@ fun AppNavigation(productoViewModel: ProductoViewModel) {
 
         // Buscar
         composable( "BuscarProducto") { BuscarProductoScreen(productoViewModel, navController)}
+        composable( "BuscarProductoNombre") { BuscarProductoPorNombreScreen(productoViewModel, navController)}
     }
 }
 

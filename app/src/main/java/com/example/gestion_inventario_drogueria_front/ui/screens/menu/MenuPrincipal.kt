@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.gestion_inventario_drogueria_front.ui.components.menu.OpcionesMenu
+import com.example.gestion_inventario_drogueria_front.ui.components.OpcionesMenu
 
 
 // Pantalla que tiene los botones de opciones

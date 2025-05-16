@@ -23,4 +23,8 @@ class ProductoRepository {
         }
         return retrofitService.obtenerPorCodigo(codigo)
     }
+
+    suspend fun obtenerPorNombre(pagina: Int, nombre: String): Page<Producto> {
+        return retrofitService.obtenerPorNombre(pagina, nombre)
+    }
 }

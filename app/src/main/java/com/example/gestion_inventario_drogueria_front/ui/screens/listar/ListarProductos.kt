@@ -17,6 +17,7 @@ import com.example.gestion_inventario_drogueria_front.ui.components.ProductoItem
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
 import com.example.gestion_inventario_drogueria_front.ui.components.menu.BotonVolverAlMenu
+import com.example.gestion_inventario_drogueria_front.ui.components.listar.BotonesPaginacion
 
 // Pantallas que tendra la app
 @Composable
@@ -47,22 +48,11 @@ fun ListarProductosScreen(viewModel: ProductoViewModel, navController: NavContro
         Spacer(modifier = Modifier.height(8.dp))
 
         // Botones de paginación
-        Row {
-            Button(
-                onClick = { viewModel.cargarPaginaAnterior() },
-                enabled = viewModel.puedeRetroceder()
-            ) {
-                Text("Anterior")
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Button(
-                onClick = { viewModel.cargarSiguientePagina() },
-                enabled = viewModel.puedeAvanzar()
-            ) {
-                Text("Siguiente")
-            }
-        }
+        BotonesPaginacion(
+            onAnterior = { viewModel.paginacion.cargarPaginaAnterior() },
+            onSiguiente = { viewModel.paginacion.cargarSiguientePagina() },
+            puedeRetroceder = viewModel.paginacion.puedeRetrocederPagina(),
+            puedeAvanzar = viewModel.paginacion.puedeAvanzarPagina()
+        )
     }
 }

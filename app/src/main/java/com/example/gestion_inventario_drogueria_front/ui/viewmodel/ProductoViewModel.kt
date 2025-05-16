@@ -23,6 +23,13 @@ class ProductoViewModel : ViewModel() {
     private var ultimaPagina: Boolean = false
     private var totalPaginas: Int = 1
 
+    // Controlador de paginación
+    val paginacion = PaginacionController(
+        cargarPagina = { offset -> cargarProductos(paginaActual + offset) },
+        puedeAvanzar = { !ultimaPagina },
+        puedeRetroceder = { paginaActual > 0 }
+    )
+
     fun cargarProductos(pagina: Int = paginaActual) {
         viewModelScope.launch {
             try {
@@ -37,18 +44,6 @@ class ProductoViewModel : ViewModel() {
         }
     }
 
-    fun cargarSiguientePagina() {
-        if (!ultimaPagina) {
-            cargarProductos(paginaActual + 1)
-        }
-    }
-
-    fun cargarPaginaAnterior() {
-        if (paginaActual > 0) {
-            cargarProductos(paginaActual - 1)
-        }
-    }
-
     fun obtenerPorCodigo(codigo: String) {
         viewModelScope.launch {
             try {
@@ -60,10 +55,9 @@ class ProductoViewModel : ViewModel() {
         }
     }
 
-    fun puedeRetroceder(): Boolean = paginaActual > 0
+    // Para mostrar en la UI
     fun getPaginaActual(): Int = paginaActual + 1
     fun getTotalPaginas(): Int = totalPaginas
-    fun puedeAvanzar(): Boolean = !ultimaPagina
 }
 
 

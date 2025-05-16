@@ -93,6 +93,12 @@ fun OpcionesMenu (navController: NavController) {
             Button(onClick = { navController.navigate("BuscarProveedor") }) {
                 Text("Buscar Proveedor NIT")
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(onClick = { navController.navigate("BuscarProveedorNombre") }) {
+                Text("Buscar Proveedor Nombre")
+            }
         }
     }
 

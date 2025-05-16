@@ -9,6 +9,7 @@ import com.example.gestion_inventario_drogueria_front.ui.screens.menu.MenuPrinci
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarProductosScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProductoScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProveedorScreen
+import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProveedoresPorNombreScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarProveedoresScreen
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProductoViewModel
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProveedorViewModel
@@ -35,6 +36,7 @@ fun AppNavigation(productoViewModel: ProductoViewModel, proveedorViewModel: Prov
         composable( "BuscarProducto") { BuscarProductoScreen(productoViewModel, navController)}
         composable( "BuscarProductoNombre") { BuscarProductoPorNombreScreen(productoViewModel, navController)}
         composable( "BuscarProveedor") { BuscarProveedorScreen(proveedorViewModel, navController)}
+        composable( "BuscarProveedorNombre") { BuscarProveedoresPorNombreScreen(proveedorViewModel, navController)}
     }
 }
 

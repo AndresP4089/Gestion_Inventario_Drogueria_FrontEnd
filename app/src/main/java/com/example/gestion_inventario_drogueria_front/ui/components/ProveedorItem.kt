@@ -18,7 +18,6 @@ fun ProveedorItem(proveedor: Proveedor) {
         .fillMaxWidth()
         .padding(8.dp)) {
         Text(text = proveedor.nombre, style = MaterialTheme.typography.bodyLarge)
-        Text(text = "Nombre: \$${proveedor.nombre}")
         Text(text = "NIT: ${proveedor.nit}")
         Text(text = "Email: ${proveedor.email}")
         Text(text = "Direccion: ${proveedor.direccion}")

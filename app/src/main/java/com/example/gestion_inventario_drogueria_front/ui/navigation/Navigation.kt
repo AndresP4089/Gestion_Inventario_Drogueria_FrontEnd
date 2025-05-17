@@ -10,13 +10,18 @@ import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarPr
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProductoScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProveedorScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProveedoresPorNombreScreen
+import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarLotesIngresoScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarProveedoresScreen
+import com.example.gestion_inventario_drogueria_front.ui.viewmodel.LoteViewModel
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProductoViewModel
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProveedorViewModel
 
 // Navegar entre screens, se configuran las rutas
 @Composable
-fun AppNavigation(productoViewModel: ProductoViewModel, proveedorViewModel: ProveedorViewModel) {
+fun AppNavigation(
+    productoViewModel: ProductoViewModel,
+    proveedorViewModel: ProveedorViewModel,
+    loteViewModel: LoteViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "menu") {
@@ -30,7 +35,7 @@ fun AppNavigation(productoViewModel: ProductoViewModel, proveedorViewModel: Prov
         // Listar
         composable("listarProductos") { ListarProductosScreen(productoViewModel, navController) }
         composable("listarProveedores") { ListarProveedoresScreen(proveedorViewModel, navController) }
-        //composable("listarMovimientos") { ListarMovimientosScreen() }
+        composable("listarLotesIngreso") { ListarLotesIngresoScreen(loteViewModel, navController) }
 
         // Buscar
         composable( "BuscarProducto") { BuscarProductoScreen(productoViewModel, navController)}

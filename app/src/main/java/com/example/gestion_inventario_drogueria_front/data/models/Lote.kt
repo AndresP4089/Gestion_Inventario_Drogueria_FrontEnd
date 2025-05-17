@@ -1,15 +1,13 @@
 package com.example.gestion_inventario_drogueria_front.data.models
 
-import java.time.LocalDate
-
 data class Lote(
-    val id: Long? = null,
-    val productoId: Long,
-    val proveedorId: Long,
+    val id: Long,
+    val producto: Producto,
+    val proveedor: Proveedor,
     val numeroLote: String,
-    val fechaIngreso: LocalDate,
-    val fechaVencimiento: LocalDate,
-    val estado: EstadoLote = EstadoLote.ACTIVO
+    val fechaIngreso: String,       // O LocalDate si lo parseas
+    val fechaVencimiento: String,   // O LocalDate si lo parseas
+    val estado: EstadoLote
 )
 
 enum class EstadoLote {

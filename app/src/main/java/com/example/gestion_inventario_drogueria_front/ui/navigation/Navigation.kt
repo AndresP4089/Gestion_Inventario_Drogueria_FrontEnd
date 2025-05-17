@@ -13,8 +13,10 @@ import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarPr
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProveedoresPorNombreScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarLotesIngresoScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarLotesVencimientoScreen
+import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarMovimientosScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarProveedoresScreen
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.LoteViewModel
+import com.example.gestion_inventario_drogueria_front.ui.viewmodel.MovimientoViewModel
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProductoViewModel
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProveedorViewModel
 
@@ -23,7 +25,8 @@ import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProveedorView
 fun AppNavigation(
     productoViewModel: ProductoViewModel,
     proveedorViewModel: ProveedorViewModel,
-    loteViewModel: LoteViewModel) {
+    loteViewModel: LoteViewModel,
+    movimientoViewModel: MovimientoViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "menu") {
@@ -39,6 +42,7 @@ fun AppNavigation(
         composable("listarProveedores") { ListarProveedoresScreen(proveedorViewModel, navController) }
         composable("listarLotesIngreso") { ListarLotesIngresoScreen(loteViewModel, navController) }
         composable("listarLotesVencimiento") { ListarLotesVencimientoScreen(loteViewModel, navController) }
+        composable("listarMovimientos") { ListarMovimientosScreen(movimientoViewModel, navController) }
 
         // Buscar
         composable( "BuscarProducto") { BuscarProductoScreen(productoViewModel, navController)}

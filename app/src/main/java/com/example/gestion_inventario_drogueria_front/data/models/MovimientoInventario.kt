@@ -3,12 +3,12 @@ package com.example.gestion_inventario_drogueria_front.data.models
 import java.time.LocalDate
 
 data class MovimientoInventario(
-    val id: Long? = null,
-    val productoId: Long,
-    val loteId: Long? = null,
+    val id: Long,
+    val producto: Producto,
+    val lote: Lote? = null,
     val cantidad: Int,
     val precioCompraVenta: Double,
-    val fecha: LocalDate,
+    val fecha: String,
     val motivo: String? = null,
     val observaciones: String? = null,
     val tipo: TipoMovimiento

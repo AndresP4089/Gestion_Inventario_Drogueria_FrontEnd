@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProductoViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import com.example.gestion_inventario_drogueria_front.ui.components.ProductoItem
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
@@ -35,6 +36,7 @@ fun ListarProductosScreen(viewModel: ProductoViewModel, navController: NavContro
         // Lista de productos
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(productos) { producto ->
+                Text(text = "----------------------------------", style = MaterialTheme.typography.bodyLarge)
                 ProductoItem(producto)
             }
         }

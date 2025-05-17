@@ -17,13 +17,12 @@ fun LoteItem(lote: Lote) {
     Column(modifier = Modifier
         .fillMaxWidth()
         .padding(8.dp)) {
-        Text(text = "----------------------------------", style = MaterialTheme.typography.bodyLarge)
-        Text(text = lote.numeroLote, style = MaterialTheme.typography.bodyLarge)
-        Text(text = "Fecha Vencimiento: \$${lote.fechaVencimiento}")
-        Text(text = "Fecha Ingreso: ${lote.fechaIngreso}")
+        Text(text = "Lote Numero: ${lote.numeroLote}", style = MaterialTheme.typography.bodyLarge)
         Text(text = "Producto:", style = MaterialTheme.typography.bodyLarge)
         ProductoItem(lote.producto)
         Text(text = "Proveedor:", style = MaterialTheme.typography.bodyLarge)
         ProveedorItem(lote.proveedor)
+        Text(text = "Fecha Vencimiento: ${lote.fechaVencimiento}")
+        Text(text = "Fecha Ingreso: ${lote.fechaIngreso}")
     }
 }

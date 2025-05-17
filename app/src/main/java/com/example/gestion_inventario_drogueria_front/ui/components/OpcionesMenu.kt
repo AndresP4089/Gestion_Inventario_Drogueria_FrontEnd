@@ -148,6 +148,7 @@ fun OpcionesMenu (navController: NavController) {
 
     Spacer(modifier = Modifier.height(24.dp))
 
+    // Movimientos
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -169,8 +170,8 @@ fun OpcionesMenu (navController: NavController) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Button(onClick = { navController.navigate("listarProductos") }) {
-                Text("Listar Productos")
+            Button(onClick = { navController.navigate("listarMovimientos") }) {
+                Text("Listar Movimientos")
             }
 
             Spacer(modifier = Modifier.height(8.dp))

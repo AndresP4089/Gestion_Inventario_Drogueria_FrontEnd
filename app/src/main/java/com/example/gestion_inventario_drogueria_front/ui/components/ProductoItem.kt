@@ -17,7 +17,7 @@ fun ProductoItem(producto: Producto) {
     Column(modifier = Modifier
         .fillMaxWidth()
         .padding(8.dp)) {
-        Text(text = producto.nombre, style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Producto: ${producto.nombre}", style = MaterialTheme.typography.bodyLarge)
         Text(text = "Precio: \$${producto.precioUnitario}")
         Text(text = "Descripción: ${producto.descripcion}")
     }

@@ -140,8 +140,8 @@ fun OpcionesMenu (navController: NavController) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Button(onClick = { navController.navigate("BuscarProducto") }) {
-                Text("Buscar Producto")
+            Button(onClick = { navController.navigate("BuscarLoteNumero") }) {
+                Text("Buscar Lote Numero")
             }
         }
     }

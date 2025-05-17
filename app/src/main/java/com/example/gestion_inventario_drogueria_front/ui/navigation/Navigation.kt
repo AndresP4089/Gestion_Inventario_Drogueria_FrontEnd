@@ -11,6 +11,7 @@ import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarPr
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProveedorScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.buscar.BuscarProveedoresPorNombreScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarLotesIngresoScreen
+import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarLotesVencimientoScreen
 import com.example.gestion_inventario_drogueria_front.ui.screens.listar.ListarProveedoresScreen
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.LoteViewModel
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.ProductoViewModel
@@ -36,6 +37,7 @@ fun AppNavigation(
         composable("listarProductos") { ListarProductosScreen(productoViewModel, navController) }
         composable("listarProveedores") { ListarProveedoresScreen(proveedorViewModel, navController) }
         composable("listarLotesIngreso") { ListarLotesIngresoScreen(loteViewModel, navController) }
+        composable("listarLotesVencimiento") { ListarLotesVencimientoScreen(loteViewModel, navController) }
 
         // Buscar
         composable( "BuscarProducto") { BuscarProductoScreen(productoViewModel, navController)}

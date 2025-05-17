@@ -22,6 +22,7 @@ fun OpcionesMenu (navController: NavController) {
     Text("Menú principal", style = MaterialTheme.typography.titleLarge)
     Spacer(modifier = Modifier.height(8.dp))
 
+    // Productos
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,6 +64,7 @@ fun OpcionesMenu (navController: NavController) {
 
     Spacer(modifier = Modifier.height(24.dp))
 
+    // Proveedores
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -104,6 +106,7 @@ fun OpcionesMenu (navController: NavController) {
 
     Spacer(modifier = Modifier.height(24.dp))
 
+    // Lotes
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -131,7 +134,7 @@ fun OpcionesMenu (navController: NavController) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Button(onClick = { navController.navigate("listarProductos") }) {
+            Button(onClick = { navController.navigate("listarLotesVencimiento") }) {
                 Text("Listar Lotes Fecha Vencimiento")
             }
 

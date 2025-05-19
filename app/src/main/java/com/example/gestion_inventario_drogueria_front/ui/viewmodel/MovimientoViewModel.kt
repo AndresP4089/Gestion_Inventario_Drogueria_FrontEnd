@@ -73,8 +73,8 @@ class MovimientoViewModel: ViewModel() {
         _reportes.value = emptyList()
         viewModelScope.launch {
             try {
-                val paginaData = repository.obtenerReporte(filtro)
-                _reportes.value = paginaData
+                val data = repository.obtenerReporte(filtro)
+                _reportes.value = data
             } catch (e: Exception) {
                 Log.e("MovimientosViewModel", "Error cargando movimientos", e)
             }

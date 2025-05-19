@@ -10,7 +10,7 @@ data class MovimientoReporteDTO (
     val tipo: TipoMovimiento, // ENTRADA o SALIDA
     val cantidad: Int,
     val precioCompraVenta: Double,
-    val fecha: LocalDate,
+    val fecha: String,
     val motivo: String? = null,
     val observaciones: String? = null,
 
@@ -20,7 +20,7 @@ data class MovimientoReporteDTO (
 
     // Datos del lote (si aplica)
     val numeroLote: String? = null,
-    val fechaVencimientoLote: LocalDate? = null,
+    val fechaVencimientoLote: String? = null,
 
     // Datos del proveedor
     val nombreProveedor: String? = null

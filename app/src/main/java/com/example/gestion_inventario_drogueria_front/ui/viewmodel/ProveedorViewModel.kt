@@ -96,6 +96,18 @@ class ProveedorViewModel: ViewModel()  {
         totalPaginas = 1
     }
 
+    fun crearProveedor(proveedor: Proveedor) {
+        viewModelScope.launch {
+            try {
+                repository.crearProveedor(proveedor)
+                // Si quieres mostrar un log en consola o algo simple:
+                Log.d("ProveedorViewModel", "Proveedor creado correctamente")
+            } catch (e: Exception) {
+                Log.e("ProveedorViewModel", "Error al crear proveedor: ${e.message}")
+            }
+        }
+    }
+
     fun getPaginaActual(): Int = paginaActual + 1
     fun getTotalPaginas(): Int = totalPaginas
 }

@@ -23,4 +23,8 @@ class ProveedorRepository {
     suspend fun obtenerProveedoresPorNombre(pagina: Int, nombre: String): Page<Proveedor> {
         return retrofitService.obtenerProveedoresPorNombre(pagina, nombre)
     }
+
+    suspend fun crearProveedor(proveedor: Proveedor): Proveedor {
+        return retrofitService.crearProveedor(proveedor)
+    }
 }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -31,6 +32,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.gestion_inventario_drogueria_front.data.DTO.DTOMovimientoRequest
+import com.example.gestion_inventario_drogueria_front.ui.components.AlertaNumLote
 import com.example.gestion_inventario_drogueria_front.ui.components.BotonVolverAlMenu
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.MovimientoViewModel
 
@@ -47,6 +49,9 @@ fun CrearMovimientoScreen(
     var mensajeCreacion by remember { mutableStateOf("") }
     var observaciones by remember { mutableStateOf("") }
     var motivo by remember { mutableStateOf("") }
+    var mostrarDialogoLote by remember { mutableStateOf(false) }
+    var movimientoPendiente by remember { mutableStateOf<DTOMovimientoRequest?>(null) }
+    var numeroLote by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -55,6 +60,7 @@ fun CrearMovimientoScreen(
     ) {
         BotonVolverAlMenu(navController)
 
+        // Ingresar codigo producto
         OutlinedTextField(
             value = codigoProducto,
             onValueChange = { codigoProducto = it },
@@ -62,6 +68,7 @@ fun CrearMovimientoScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Ingresar cantidad
         OutlinedTextField(
             value = cantidad,
             onValueChange = { cantidad = it },
@@ -70,6 +77,7 @@ fun CrearMovimientoScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Ingresar precio
         OutlinedTextField(
             value = precioCompraVenta,
             onValueChange = { precioCompraVenta = it },
@@ -78,13 +86,17 @@ fun CrearMovimientoScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Ingresar observaciones
         OutlinedTextField(value = observaciones, onValueChange = { observaciones = it }, label = { Text("Observaciones") })
 
+        // Ingresar motivo
         OutlinedTextField(value = motivo, onValueChange = { motivo = it }, label = { Text("Motivo") })
 
 
         Text("Tipo de Movimiento", style = MaterialTheme.typography.bodyLarge)
 
+
+        // Seleccionar tipo movimiento
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = tipo == "ENTRADA",
@@ -108,23 +120,48 @@ fun CrearMovimientoScreen(
             val precioDouble = precioCompraVenta.toDoubleOrNull() ?: 0.0
 
             viewModel.verificarProducto(codigoProducto) { esControladoPorLote ->
-                if (esControladoPorLote) {
-                    // crear lote
+                val movimiento = DTOMovimientoRequest(
+                    codigoProducto = codigoProducto,
+                    cantidad = cantidadInt,
+                    tipo = tipo,
+                    precioCompraVenta = precioDouble,
+                    observaciones = observaciones,
+                    motivo = motivo
+                )
+
+                if (esControladoPorLote && tipo == "SALIDA") {
+                    movimientoPendiente = movimiento
+                    mostrarDialogoLote = true
                 } else {
-                    val movimiento = DTOMovimientoRequest(
-                        codigoProducto = codigoProducto,
-                        cantidad = cantidadInt,
-                        tipo = tipo,
-                        precioCompraVenta = precioDouble,
-                        observaciones = observaciones,
-                        motivo = motivo
-                    )
                     viewModel.crearMovimiento(movimiento)
                     mensajeCreacion = "Movimiento creado exitosamente"
                 }
             }
         }) {
             Text("Crear Movimiento")
+        }
+
+        // Diálogo para pedir número de lote
+        if (mostrarDialogoLote) {
+            AlertaNumLote(
+                numeroLote = numeroLote,
+                onNumeroLoteChange = { numeroLote = it },
+                onConfirmar = {
+                    movimientoPendiente?.let {
+                        val movimientoConLote = it.copy(numeroLote = numeroLote)
+                        viewModel.crearMovimiento(movimientoConLote)
+                        mensajeCreacion = "Movimiento creado exitosamente"
+                    }
+                    mostrarDialogoLote = false
+                    numeroLote = ""
+                    movimientoPendiente = null
+                },
+                onCancelar = {
+                    mostrarDialogoLote = false
+                    numeroLote = ""
+                    movimientoPendiente = null
+                }
+            )
         }
 
         if (mensajeCreacion.isNotEmpty()) {

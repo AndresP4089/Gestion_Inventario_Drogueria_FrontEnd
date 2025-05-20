@@ -5,15 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gestion_inventario_drogueria_front.data.DTO.DTOMovimientoRequest
 import com.example.gestion_inventario_drogueria_front.data.DTO.MovimientoFiltroDTO
 import com.example.gestion_inventario_drogueria_front.data.DTO.MovimientoReporteDTO
 import com.example.gestion_inventario_drogueria_front.data.DTO.ResumenMovimientoInventarioDTO
 import com.example.gestion_inventario_drogueria_front.data.models.MovimientoInventario
+import com.example.gestion_inventario_drogueria_front.data.models.Producto
 import com.example.gestion_inventario_drogueria_front.data.repository.MovimientoRepository
+import com.example.gestion_inventario_drogueria_front.data.repository.ProductoRepository
 import kotlinx.coroutines.launch
 
 class MovimientoViewModel: ViewModel() {
     private val repository = MovimientoRepository()
+    private val productoRepository = ProductoRepository()
 
     // Lista movimientos
     private val _movimientos = MutableLiveData<List<MovimientoInventario>>()
@@ -80,6 +84,30 @@ class MovimientoViewModel: ViewModel() {
             }
         }
     }
+
+    fun crearMovimiento(request: DTOMovimientoRequest) {
+        viewModelScope.launch {
+            try {
+                repository.crearMovimiento(request)
+                // Si quieres mostrar un log en consola o algo simple:
+                Log.d("MovimientoViewModel", "Movimiento creado correctamente")
+            } catch (e: Exception) {
+                Log.e("MovimientoViewModel", "Error al crear movimiento: ${e.message}")
+            }
+        }
+    }
+
+    fun verificarProducto(codigo: String, callback: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val producto = productoRepository.obtenerPorCodigo(codigo)
+                callback(producto.controladoPorLote)
+            } catch (e: Exception) {
+                callback(false)
+            }
+        }
+    }
+
 
     fun getPaginaActual(): Int = paginaActual + 1
     fun getTotalPaginas(): Int = totalPaginas

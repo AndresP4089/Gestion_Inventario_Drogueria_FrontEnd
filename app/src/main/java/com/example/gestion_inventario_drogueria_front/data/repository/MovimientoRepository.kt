@@ -1,5 +1,6 @@
 package com.example.gestion_inventario_drogueria_front.data.repository
 
+import com.example.gestion_inventario_drogueria_front.data.DTO.DTOMovimientoRequest
 import com.example.gestion_inventario_drogueria_front.data.DTO.MovimientoFiltroDTO
 import com.example.gestion_inventario_drogueria_front.data.DTO.MovimientoReporteDTO
 import com.example.gestion_inventario_drogueria_front.data.DTO.ResumenMovimientoInventarioDTO
@@ -9,6 +10,7 @@ import com.example.gestion_inventario_drogueria_front.data.api.RetrofitInstance
 import com.example.gestion_inventario_drogueria_front.data.models.Page
 import com.example.gestion_inventario_drogueria_front.data.models.Lote
 import com.example.gestion_inventario_drogueria_front.data.models.MovimientoInventario
+import com.example.gestion_inventario_drogueria_front.data.models.Producto
 
 class MovimientoRepository {
 
@@ -24,5 +26,9 @@ class MovimientoRepository {
 
     suspend fun obtenerResumen(filtro: MovimientoFiltroDTO): ResumenMovimientoInventarioDTO {
         return retrofitService.obtenerResumen(filtro)
+    }
+
+    suspend fun crearMovimiento(request: DTOMovimientoRequest): MovimientoInventario {
+        return retrofitService.crearMovimiento(request)
     }
 }

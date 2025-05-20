@@ -1,7 +1,7 @@
 package com.example.gestion_inventario_drogueria_front.data.models
 
 data class Lote(
-    val id: Long,
+    val id: Long? = null,
     val producto: Producto,
     val proveedor: Proveedor,
     val numeroLote: String,

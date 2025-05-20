@@ -11,16 +11,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +26,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.gestion_inventario_drogueria_front.data.DTO.DTOLoteRequest
 import com.example.gestion_inventario_drogueria_front.data.DTO.DTOMovimientoRequest
+import com.example.gestion_inventario_drogueria_front.ui.components.AlertaCrearLote
 import com.example.gestion_inventario_drogueria_front.ui.components.AlertaNumLote
 import com.example.gestion_inventario_drogueria_front.ui.components.BotonVolverAlMenu
 import com.example.gestion_inventario_drogueria_front.ui.viewmodel.MovimientoViewModel
@@ -41,17 +38,24 @@ fun CrearMovimientoScreen(
     viewModel: MovimientoViewModel,
     navController: NavController
 ) {
+    // variables usadas en todos los casos
     var codigoProducto by remember { mutableStateOf("") }
     var cantidad by remember { mutableStateOf("") }
     var tipo by remember { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
     var precioCompraVenta by remember { mutableStateOf("") }
     var mensajeCreacion by remember { mutableStateOf("") }
     var observaciones by remember { mutableStateOf("") }
     var motivo by remember { mutableStateOf("") }
+
+    // Para el caso de salida producto controlado por lote
     var mostrarDialogoLote by remember { mutableStateOf(false) }
     var movimientoPendiente by remember { mutableStateOf<DTOMovimientoRequest?>(null) }
     var numeroLote by remember { mutableStateOf("") }
+
+    // Para el caso entrada producto controlado por lote
+    var mostrarDialogoCrearLote by remember { mutableStateOf(false) }
+    var fechaVencimiento by remember { mutableStateOf("") }
+    var nitProveedor by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -132,6 +136,9 @@ fun CrearMovimientoScreen(
                 if (esControladoPorLote && tipo == "SALIDA") {
                     movimientoPendiente = movimiento
                     mostrarDialogoLote = true
+                } else if (esControladoPorLote && tipo == "ENTRADA") {
+                    movimientoPendiente = movimiento
+                    mostrarDialogoCrearLote = true
                 } else {
                     viewModel.crearMovimiento(movimiento)
                     mensajeCreacion = "Movimiento creado exitosamente"
@@ -163,6 +170,45 @@ fun CrearMovimientoScreen(
                 }
             )
         }
+
+        // Diálogo para crear lote
+        if (mostrarDialogoCrearLote) {
+            AlertaCrearLote(
+                numeroLote = numeroLote,
+                fechaVencimiento = fechaVencimiento,
+                nitProveedor = nitProveedor,
+                onNumeroLoteChange = { numeroLote = it },
+                onFechaVencimientoChange = { fechaVencimiento = it },
+                onNitProveedorChange = { nitProveedor = it },
+                onConfirmar = {
+                    movimientoPendiente?.let {
+                        val nuevoLote = DTOLoteRequest(
+                            numeroLote = numeroLote,
+                            fechaVencimiento = fechaVencimiento,
+                            codigoProducto = it.codigoProducto,
+                            nitProveedor = nitProveedor
+                        )
+                        val movimientoConLote = it.copy(lote = nuevoLote)
+
+                        viewModel.crearMovimiento(movimientoConLote)
+                        mensajeCreacion = "Movimiento creado exitosamente"
+                    }
+                    mostrarDialogoCrearLote = false
+                    numeroLote = ""
+                    fechaVencimiento = ""
+                    nitProveedor = ""
+                    movimientoPendiente = null
+                },
+                onCancelar = {
+                    mostrarDialogoCrearLote = false
+                    numeroLote = ""
+                    fechaVencimiento = ""
+                    nitProveedor = ""
+                    movimientoPendiente = null
+                }
+            )
+        }
+
 
         if (mensajeCreacion.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))

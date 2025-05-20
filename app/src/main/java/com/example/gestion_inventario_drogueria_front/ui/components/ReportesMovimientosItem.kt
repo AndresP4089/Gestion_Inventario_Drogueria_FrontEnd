@@ -29,42 +29,67 @@ fun ReportesMovimientosItem(reporte: MovimientoReporteDTO) {
     ) {
         Text("Movimiento N°: ${reporte.id}", style = MaterialTheme.typography.bodyLarge)
 
-        Spacer(modifier = Modifier.height(4.dp))
-        Text("Producto: ${reporte.codigoProducto} - ${reporte.nombreProducto}")
-
-        Spacer(modifier = Modifier.height(4.dp))
-        if (reporte.numeroLote != null) {
-            Text("Lote: ${reporte.numeroLote}")
-            reporte.fechaVencimientoLote?.let {
-                Text("Vence: $it")
-            }
-        } else {
-            Text("Lote: Sin lote")
-        }
-
-        Spacer(modifier = Modifier.height(4.dp))
-        Text("Cantidad: ${reporte.cantidad}")
-        Text("Precio: \$${reporte.precioCompraVenta}")
-        Text("Fecha: ${reporte.fecha}")
-
-        Spacer(modifier = Modifier.height(4.dp))
-        Text("Tipo: ${reporte.tipo}")
-
-        if (!reporte.motivo.isNullOrBlank()) {
-            Text("Motivo: ${reporte.motivo}")
-        } else {
-            Text("Motivo: Sin motivo")
-        }
-
-        if (!reporte.observaciones.isNullOrBlank()) {
-            Text("Observaciones: ${reporte.observaciones}")
-        } else {
-            Text("Observaciones: Sin observaciones")
-        }
-
-        reporte.nombreProveedor?.let {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                .padding(8.dp)
+        ) {
+            Text(text = "Información del movimiento:", style = MaterialTheme.typography.bodyLarge)
+            Text("Cantidad: ${reporte.cantidad}")
+            Text("Precio: \$${reporte.precioCompraVenta}")
+            Text("Fecha: ${reporte.fecha}")
             Spacer(modifier = Modifier.height(4.dp))
-            Text("Proveedor: $it")
+            Text("Tipo: ${reporte.tipo}")
+            if (!reporte.motivo.isNullOrBlank()) {
+                Text("Motivo: ${reporte.motivo}")
+            } else {
+                Text("Motivo: Sin motivo")
+            }
+
+            if (!reporte.observaciones.isNullOrBlank()) {
+                Text("Observaciones: ${reporte.observaciones}")
+            } else {
+                Text("Observaciones: Sin observaciones")
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                .padding(8.dp)
+        ) {
+            Text(text = "Información del producto:", style = MaterialTheme.typography.bodyLarge)
+            Text("Nombre: ${reporte.nombreProducto}")
+            Text("Codigo: ${reporte.codigoProducto}")
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                .padding(8.dp)
+        ) {
+            Text(text = "Información del lote:", style = MaterialTheme.typography.bodyLarge)
+
+            if (reporte.numeroLote != null) {
+
+                Text("Lote numero: ${reporte.numeroLote}")
+                reporte.fechaVencimientoLote?.let {
+                    Text("Vence: $it")
+                }
+
+                reporte.nombreProveedor?.let {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text("Proveedor: $it")
+                }
+            } else {
+                Text("Sin lote")
+            }
         }
     }
 }

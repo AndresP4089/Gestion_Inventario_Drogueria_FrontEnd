@@ -36,7 +36,6 @@ fun ListarProveedoresScreen(viewModel: ProveedorViewModel, navController: NavCon
         // Lista de proveedores
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(proveedores) { proveedor ->
-                Text(text = "----------------------------------", style = MaterialTheme.typography.bodyLarge)
                 ProveedorItem(proveedor)
             }
         }

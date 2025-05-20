@@ -38,7 +38,6 @@ fun CrearMovimientoScreen(
     viewModel: MovimientoViewModel,
     navController: NavController
 ) {
-    // variables usadas en todos los casos
     var codigoProducto by remember { mutableStateOf("") }
     var cantidad by remember { mutableStateOf("") }
     var tipo by remember { mutableStateOf("") }
@@ -47,12 +46,10 @@ fun CrearMovimientoScreen(
     var observaciones by remember { mutableStateOf("") }
     var motivo by remember { mutableStateOf("") }
 
-    // Para el caso de salida producto controlado por lote
     var mostrarDialogoLote by remember { mutableStateOf(false) }
     var movimientoPendiente by remember { mutableStateOf<DTOMovimientoRequest?>(null) }
     var numeroLote by remember { mutableStateOf("") }
 
-    // Para el caso entrada producto controlado por lote
     var mostrarDialogoCrearLote by remember { mutableStateOf(false) }
     var fechaVencimiento by remember { mutableStateOf("") }
     var nitProveedor by remember { mutableStateOf("") }
@@ -64,7 +61,6 @@ fun CrearMovimientoScreen(
     ) {
         BotonVolverAlMenu(navController)
 
-        // Ingresar codigo producto
         OutlinedTextField(
             value = codigoProducto,
             onValueChange = { codigoProducto = it },
@@ -72,7 +68,6 @@ fun CrearMovimientoScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Ingresar cantidad
         OutlinedTextField(
             value = cantidad,
             onValueChange = { cantidad = it },
@@ -81,7 +76,6 @@ fun CrearMovimientoScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Ingresar precio
         OutlinedTextField(
             value = precioCompraVenta,
             onValueChange = { precioCompraVenta = it },
@@ -90,32 +84,26 @@ fun CrearMovimientoScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Ingresar observaciones
-        OutlinedTextField(value = observaciones, onValueChange = { observaciones = it }, label = { Text("Observaciones") })
+        OutlinedTextField(
+            value = observaciones,
+            onValueChange = { observaciones = it },
+            label = { Text("Observaciones") },
+            modifier = Modifier.fillMaxWidth()
+        )
 
-        // Ingresar motivo
-        OutlinedTextField(value = motivo, onValueChange = { motivo = it }, label = { Text("Motivo") })
+        OutlinedTextField(
+            value = motivo,
+            onValueChange = { motivo = it },
+            label = { Text("Motivo") },
+            modifier = Modifier.fillMaxWidth()
+        )
 
-
-        Text("Tipo de Movimiento", style = MaterialTheme.typography.bodyLarge)
-
-
-        // Seleccionar tipo movimiento
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(
-                selected = tipo == "ENTRADA",
-                onClick = { tipo = "ENTRADA" }
-            )
-            Text("Entrada", modifier = Modifier.clickable { tipo = "ENTRADA" })
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            RadioButton(
-                selected = tipo == "SALIDA",
-                onClick = { tipo = "SALIDA" }
-            )
-            Text("Salida", modifier = Modifier.clickable { tipo = "SALIDA" })
-        }
+        OutlinedTextField(
+            value = tipo,
+            onValueChange = { tipo = it },
+            label = { Text("Tipo de Movimiento (ENTRADA o SALIDA)") },
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -148,7 +136,6 @@ fun CrearMovimientoScreen(
             Text("Crear Movimiento")
         }
 
-        // Diálogo para pedir número de lote
         if (mostrarDialogoLote) {
             AlertaNumLote(
                 numeroLote = numeroLote,
@@ -171,7 +158,6 @@ fun CrearMovimientoScreen(
             )
         }
 
-        // Diálogo para crear lote
         if (mostrarDialogoCrearLote) {
             AlertaCrearLote(
                 numeroLote = numeroLote,
@@ -209,10 +195,10 @@ fun CrearMovimientoScreen(
             )
         }
 
-
         if (mensajeCreacion.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = mensajeCreacion, color = MaterialTheme.colorScheme.primary)
         }
     }
 }
+

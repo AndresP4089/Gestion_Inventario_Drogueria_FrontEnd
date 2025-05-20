@@ -36,7 +36,6 @@ fun ListarProductosScreen(viewModel: ProductoViewModel, navController: NavContro
         // Lista de productos
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(productos) { producto ->
-                Text(text = "----------------------------------", style = MaterialTheme.typography.bodyLarge)
                 ProductoItem(producto)
             }
         }

@@ -35,7 +35,7 @@ fun ListarMovimientosScreen(viewModel: MovimientoViewModel, navController: NavCo
         // Lista de productos
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(movimientos) { movimiento ->
-                Text(text = "----------------------------------", style = MaterialTheme.typography.bodyLarge)
+
                 MovimientoItem(movimiento)
             }
         }

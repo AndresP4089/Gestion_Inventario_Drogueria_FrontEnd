@@ -34,30 +34,52 @@ fun ResumenReportesMovimientosItem(resumen: ResumenMovimientoInventarioDTO) {
     ) {
         Text("Resumen", style = MaterialTheme.typography.bodyLarge)
 
-        Spacer(modifier = Modifier.height(4.dp))
-        Text("Movimientos")
-        Text("Total: ${resumen.totalesMovimientos.totalMovimientos}")
-        Text("Total Neto: ${resumen.totalesMovimientos.totalNeto}")
-        Text("Total Entradas: ${resumen.totalesMovimientos.totalEntradas}")
-        Text("Total Salidas: ${resumen.totalesMovimientos.totalSalidas}")
-
-        Spacer(modifier = Modifier.height(4.dp))
-        Text("Valores")
-        Text("Valor Total: \$${resumen.totalesValores.valorTotal}")
-        Text("Valor Total Neto: \$${resumen.totalesValores.valorNeto}")
-        Text("Valor Total Entradas: \$${resumen.totalesValores.valorTotalEntradas}")
-        Text("Valor Total Salidas: \$${resumen.totalesValores.valorTotalSalidas}")
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // Aquí limitamos la altura del LazyColumn
-        LazyColumn(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(max = 200.dp) // Puedes ajustar este valor según el diseño
+                .padding(8.dp)
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                .padding(8.dp)
         ) {
-            items(resumen.movimientos) { reporte ->
-                ReportesMovimientosItem(reporte)
+            Text("Resumen de movimientos:")
+            Text("Total: ${resumen.totalesMovimientos.totalMovimientos}")
+            Text("Total Neto: ${resumen.totalesMovimientos.totalNeto}")
+            Text("Total Entradas: ${resumen.totalesMovimientos.totalEntradas}")
+            Text("Total Salidas: ${resumen.totalesMovimientos.totalSalidas}")
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                .padding(8.dp)
+        ) {
+            Text("Resumen de valores:")
+            Text("Valor Total: \$${resumen.totalesValores.valorTotal}")
+            Text("Valor Total Neto: \$${resumen.totalesValores.valorNeto}")
+            Text("Valor Total Entradas: \$${resumen.totalesValores.valorTotalEntradas}")
+            Text("Valor Total Salidas: \$${resumen.totalesValores.valorTotalSalidas}")
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                .padding(8.dp)
+        ) {
+
+            Text("Movimientos:")
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 200.dp) // Puedes ajustar este valor según el diseño
+            ) {
+                items(resumen.movimientos) { reporte ->
+                    ReportesMovimientosItem(reporte)
+                }
             }
         }
     }

@@ -122,10 +122,6 @@ fun OpcionesMenu (navController: NavController) {
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            Button(onClick = { navController.navigate("añadirProducto") }) {
-                Text("Añadir Producto")
-            }
-
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(onClick = { navController.navigate("listarLotesIngreso") }) {

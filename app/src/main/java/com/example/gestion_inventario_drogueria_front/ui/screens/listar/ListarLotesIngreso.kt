@@ -36,7 +36,6 @@ fun ListarLotesIngresoScreen(viewModel: LoteViewModel, navController: NavControl
         // Lista de productos
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(lotes) { lote ->
-                Text(text = "----------------------------------", style = MaterialTheme.typography.bodyLarge)
                 LoteItem(lote)
             }
         }

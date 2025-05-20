@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -49,26 +50,63 @@ fun CrearProductoScreen(viewModel: ProductoViewModel, navController: NavControll
 
         BotonVolverAlMenu(navController)
 
-        TextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre") })
-        TextField(value = codigo, onValueChange = { codigo = it }, label = { Text("Código") })
-        TextField(
+        OutlinedTextField(
+            value = nombre,
+            onValueChange = { nombre = it },
+            label = { Text("Nombre") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = codigo,
+            onValueChange = { codigo = it },
+            label = { Text("Código") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
             value = precioUnitario,
             onValueChange = { precioUnitario = it },
             label = { Text("Precio Unitario") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth()
         )
-        TextField(value = laboratorio, onValueChange = { laboratorio = it }, label = { Text("Laboratorio") })
-        TextField(value = principioActivo, onValueChange = { principioActivo = it }, label = { Text("Principio Activo") })
-        TextField(value = presentacion, onValueChange = { presentacion = it }, label = { Text("Presentación") })
-        TextField(value = unidadMedida, onValueChange = { unidadMedida = it }, label = { Text("Unidad de Medida") })
-        TextField(
+        OutlinedTextField(
+            value = laboratorio,
+            onValueChange = { laboratorio = it },
+            label = { Text("Laboratorio") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = principioActivo,
+            onValueChange = { principioActivo = it },
+            label = { Text("Principio Activo") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = presentacion,
+            onValueChange = { presentacion = it },
+            label = { Text("Presentación") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = unidadMedida,
+            onValueChange = { unidadMedida = it },
+            label = { Text("Unidad de Medida") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
             value = stockMinimo,
             onValueChange = { stockMinimo = it },
             label = { Text("Stock Mínimo") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth()
         )
 
-        OutlinedTextField(value = descripcion, onValueChange = { descripcion = it }, label = { Text("Descripción") })
+        OutlinedTextField(
+            value = descripcion,
+            onValueChange = { descripcion = it },
+            label = { Text("Descripción") },
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(checked = controladoPorLote, onCheckedChange = { controladoPorLote = it })

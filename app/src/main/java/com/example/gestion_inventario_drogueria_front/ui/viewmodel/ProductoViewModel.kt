@@ -93,6 +93,18 @@ class ProductoViewModel : ViewModel() {
         totalPaginas = 1
     }
 
+    fun crearProducto(producto: Producto) {
+        viewModelScope.launch {
+            try {
+                repository.crearProducto(producto)
+                // Si quieres mostrar un log en consola o algo simple:
+                Log.d("ProductoViewModel", "Producto creado correctamente")
+            } catch (e: Exception) {
+                Log.e("ProductoViewModel", "Error al crear producto: ${e.message}")
+            }
+        }
+    }
+
     fun getPaginaActual(): Int = paginaActual + 1
     fun getTotalPaginas(): Int = totalPaginas
 }

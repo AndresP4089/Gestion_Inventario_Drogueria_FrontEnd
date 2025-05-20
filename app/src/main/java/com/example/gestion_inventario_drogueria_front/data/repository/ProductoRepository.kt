@@ -27,4 +27,8 @@ class ProductoRepository {
     suspend fun obtenerPorNombre(pagina: Int, nombre: String): Page<Producto> {
         return retrofitService.obtenerPorNombre(pagina, nombre)
     }
+
+    suspend fun crearProducto(producto: Producto): Producto {
+        return retrofitService.crearProducto(producto)
+    }
 }
